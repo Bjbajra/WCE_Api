@@ -1,0 +1,41 @@
+@model IEnumerable<WCE_App.Models.StudentModel>
+
+    @{
+        Layout = "_Layout1";
+    }
+
+<a asp-controller="Students" asp-action="Create" class="btn btn-primary">Add new student</a>
+
+
+<hr>
+<table class="table table-bordered table-striped table-hover table-sm">
+    <thead class="table-dark">
+        <tr>
+            <th></th>
+            <th>FirstName</th>
+            <th>LastName</th>
+            <th>Email</th>
+            <th>MobileNumber</th>
+            <th>Address</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var student in Model)
+        {
+            <tr>
+                <td style="text-align: center;"><a asp-action="EditStudent" class="btn btn-primary"
+                    asp-route-id="@student.Id"><i class="fad fa-pencil-alt"></i></a></td>
+                <td>@student.FirstName</td>
+                <td>@student.LastName</td>
+                <td>@student.Email</td>
+                <td>@student.MobileNumber</td>
+                <td>@student.Address</td>            
+                <th style="text-align: center; font-style: italic; "><a asp-action="Students" asp-route-id="@student.Id"><i
+                        class="fad fa-trash"></i></a></th>
+            </tr>
+           
+        }        
+    </tbody>
+</table>

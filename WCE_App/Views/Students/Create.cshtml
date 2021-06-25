@@ -1,0 +1,42 @@
+@model WCE_App.ViewModels.AddStudentViewModel
+
+<h1>Register new student</h1>
+
+<div asp-validation-summary="All"></div>
+
+<form asp-controller="Students" asp-action="Create" method="POST">
+   <div class="card">
+        <div class="card-header">
+            <h4>Add New  Course</h4>
+        </div>
+        <div class="p-3">
+            <div class="mb-3">
+                <label class="form-label" asp-for="FirstName"></label>
+                <input class="form-control" asp-for="FirstName">
+                <span class="msg" asp-validation-for="FirstName"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" asp-for="LastName"></label>
+                <input class="form-control" asp-for="LastName">
+                <span class="msg" asp-validation-for="LastName"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" asp-for="Email"></label>
+                <input class="form-control" asp-for="Email">
+                <span class="msg" asp-validation-for="Email"></span>
+            </div>            
+            <div class="mb-3">
+                <label class="form-label" asp-for="MobileNumber"></label>
+                <input class="form-control" asp-for="MobileNumber">
+                <span class="msg" asp-validation-for="MobileNumber"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" asp-for="Address"></label>
+                <input class="form-control" asp-for="Address">
+                <span class="msg" asp-validation-for="Address"></span>
+            </div>
+                    
+            <button type="submit" class="btn btn-primary">Add</button>
+        </div>
+    </div>
+</form>

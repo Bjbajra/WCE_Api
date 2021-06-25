@@ -1,0 +1,42 @@
+@model WCE_App.ViewModels.DetailCourseViewModel
+
+@{
+    Layout = "_Layout1";
+}
+
+<div asp-controller="Courses" asp-action="CourseDetail" method="POST">
+    <div class="card" style="width: 18rem;">
+        <h2 style="text-align: center;">Course Detail</h2>
+        @* <img src="~/car.jpg" class="card-img-top" alt="car_picture" asp-append-version="true"> *@
+        <hr />
+        <div class="card-body">
+            <div class="p-3">
+                <div class="mb-3">
+                    <label asp-for="CourseNumber"></label>
+                    <input asp-for="CourseNumber">
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Title"></label>
+                    <input asp-for="Title">
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Duration"></label>
+                    <input asp-for="Duration">
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Description"></label>
+                    <textarea asp-for="Description" class="form-control" cols="30" rows="5"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Level"></label>
+                    <input asp-for="Level">
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Status"></label>
+                    <input asp-for="Status">
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

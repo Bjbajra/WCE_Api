@@ -1,0 +1,44 @@
+ @model IEnumerable<WCE_App.Models.CourseModel> 
+
+@{
+    Layout = "_Layout1";
+}
+
+<a asp-controller="Courses" asp-action="Create" class="btn btn-primary">Add new Course</a>
+
+<hr>
+<table class="table table-bordered table-striped table-hover table-sm">
+    <thead class="table-dark">
+        <tr>
+            <th></th>
+            <th>CourseNumber</th>
+            <th>Title</th>
+            <th>Duration</th>
+            <th>Description</th>
+            <th>Level</th>
+            <th>Status</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var course in Model)
+        {
+            <tr>
+                <td style="text-align: center;"><a asp-action="EditCourse" class="btn btn-primary" asp-route-courseNo="@course.CourseNumber"><i
+                        class="fad fa-pencil-alt"></i></a></td>                 
+                <td>@course.CourseNumber</td>
+                <td>@course.Title</td>
+                <td>@course.Duration</td>
+                <td>@course.Description</td>
+                <td>@course.Level</td>
+                <td>@course.Status</td>                
+                <th style="text-align: center; font-style: italic; "><a asp-action="CourseDetail"
+                    asp-route-courseNo="@course.CourseNumber"><i class="fal fa-info-circle"></i></a></th>
+                 <th style="text-align: center; font-style: italic; "><a asp-action="DeleteCourse" 
+                    asp-route-courseNo="@course.CourseNumber"><i class="fad fa-trash"></i></a></th>
+            </tr>
+        }
+    </tbody>
+</table>

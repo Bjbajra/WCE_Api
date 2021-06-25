@@ -1,0 +1,50 @@
+@model WCE_App.ViewModels.AddCourseViewModel
+
+@{
+    Layout = "_Layout1";
+}
+<h1>Here register new courses</h1>
+
+<div asp-validation-summary="All"></div>
+
+<form asp-controller="Courses" asp-action="Create" method="POST">
+   <div class="card">
+        <div class="card-header">
+            <h4>Add New  Course</h4>
+        </div>
+        <div class="p-3">
+            <div class="mb-3">
+                <label class="form-label" asp-for="CourseNumber"></label>
+                <input class="form-control" asp-for="CourseNumber">
+                <span class="msg" asp-validation-for="CourseNumber"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" asp-for="Title"></label>
+                <input class="form-control" asp-for="Title">
+                <span class="msg" asp-validation-for="Title"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" asp-for="Duration"></label>
+                <input class="form-control" asp-for="Duration">
+                <span class="msg" asp-validation-for="Duration"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" asp-for="Description"></label>
+                <textarea asp-for="Description" class="form-control" cols="30" rows="5"></textarea>
+                <span class="msg" asp-validation-for="Description"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" asp-for="Level"></label>
+                <input class="form-control" asp-for="Level">
+                <span class="msg" asp-validation-for="Level"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" asp-for="Status"></label>
+                <input class="form-control" asp-for="Status">
+                <span class="msg" asp-validation-for="Status"></span>
+            </div>
+                    
+            <button type="submit" class="btn btn-primary">Add</button>
+        </div>
+    </div>
+</form>
