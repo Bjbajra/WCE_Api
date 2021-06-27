@@ -46,3 +46,5 @@ C:\Users\bijay\westcoasteducationapi\wce_app\obj\Debug\net5.0\Razor\Views\Shared
 C:\Users\bijay\westcoasteducationapi\wce_app\obj\Debug\net5.0\Razor\Views\Courses\CourseDetail.cshtml.g.cs
 C:\Users\bijay\westcoasteducationapi\wce_app\obj\Debug\net5.0\Razor\Views\Courses\EditCourse.cshtml.g.cs
 C:\Users\bijay\westcoasteducationapi\wce_app\obj\Debug\net5.0\Razor\Views\Students\EditStudent.cshtml.g.cs
+C:\Users\bijay\westcoasteducationapi\wce_app\obj\Debug\net5.0\Razor\Views\Shared\_Layout2.cshtml.g.cs
+C:\Users\bijay\westcoasteducationapi\wce_app\obj\Debug\net5.0\Razor\Views\Students\SearchStudent.cshtml.g.cs

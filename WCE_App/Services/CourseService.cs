@@ -55,11 +55,11 @@ namespace WCE_App.Services
             }
         }
 
-        public async Task<bool> DeleteCourse(int courseNo)
+        public async Task<bool> DeleteCourse(int id)
         {
             try
             {
-                var response = await _http.DeleteAsync($"{_baseUrl}/{courseNo}");
+                var response = await _http.DeleteAsync($"{_baseUrl}/{id}");
 
                 if (response.IsSuccessStatusCode)
                 {

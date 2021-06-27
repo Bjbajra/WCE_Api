@@ -26,18 +26,34 @@ namespace WCE_App.Controllers
 
 
         }
+        
+         public async Task<IActionResult> SearchStudent(string email)
+        {
+            var student = await _studentService.GetStudentAsync(email);
 
-        // public async Task<IActionResult> SearchStudent(string email)
-        // {
-        //     return Content("Hello");
-        // }
+            if(student != null)
+            {
+                var model = new SearchStudentViewModel
+                {
+                    Id = student.Id,
+                    FirstName = student.FirstName,
+                    LastName = student.LastName,
+                    Email = student.Email,
+                    MobileNumber = student.MobileNumber,
+                    Address = student.Address
+                };
+            return View("SearchStudent", model);
+            }
+            return Content("Student not found!");
+            //return View("SearchStudent");
+        }
 
         [HttpGet()]
         public async Task<IActionResult> Create()
         {
-            // var list = await _studentService.GetStudentAsync();
-            // return View("Create", list);
-            return View("Create");
+            //  var list = await _studentService.GetStudentAsync();
+            //  return View("Create", list);
+             return View("Create");
         }
 
         [HttpPost()]
@@ -86,6 +102,8 @@ namespace WCE_App.Controllers
 
             return View("EditStudent", model);
         }
+
+        [HttpPost()]
         public async Task<IActionResult> EditStudent(EditStudentViewModel data)
         {
             try
@@ -108,6 +126,21 @@ namespace WCE_App.Controllers
                 return View("Error");
             }
 
+            return View("Error");
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            var student = await _studentService.GetStudentAsync(id);
+            try
+            {
+                if(await _studentService.DeleteStudent(id))
+                    return RedirectToAction("Index");
+            }
+            catch (Exception)
+            {
+                return View("Error");
+            }
             return View("Error");
         }
 

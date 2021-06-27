@@ -12,6 +12,6 @@ namespace WCE_Api.Interfaces
         Task<Student>GetStudentByEmailAsync(string email);
         void Update(Student student);
         void Delete(Student student);
-        Task<bool> SaveAllChangesAsync();
+        //Task<bool> SaveAllChangesAsync();
     }
 }

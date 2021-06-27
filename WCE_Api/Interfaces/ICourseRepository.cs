@@ -12,6 +12,6 @@ namespace WCE_Api.Interfaces
         Task<Course> GetCourseByCourseNoAsync(int courseNo);
         void Update(Course course);
         void Delete(Course course);
-        Task<bool> SaveAllChangesAsync();
+        //Task<bool> SaveAllChangesAsync();
     }
 }

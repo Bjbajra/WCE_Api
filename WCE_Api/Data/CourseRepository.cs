@@ -40,10 +40,10 @@ namespace WCE_Api.Data
            return await _context.Courses.ToListAsync();
         }
 
-        public async Task<bool> SaveAllChangesAsync()
+       /* public async Task<bool> SaveAllChangesAsync()
         {
             return await _context.SaveChangesAsync() > 0;
-        }
+        }*/
 
         public void Update(Course course)
         {

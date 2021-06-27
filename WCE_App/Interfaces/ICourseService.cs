@@ -12,6 +12,6 @@ namespace WCE_App.Interfaces
         Task<CourseModel> GetCourseAsync(int courseNo);
         Task<bool> AddCourse(CourseModel model);
         Task<bool> UpdateCourse(int id, UpdateCourseViewModel model);
-        Task<bool> DeleteCourse(int courseNo);
+        Task<bool> DeleteCourse(int id);
     }
 }

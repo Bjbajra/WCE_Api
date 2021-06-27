@@ -49,9 +49,27 @@ namespace WCE_App.Services
             }
         }
 
-        public Task<bool> DeleteStudent(int id)
+        public async Task<bool> DeleteStudent(int id)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                var response = await _http.DeleteAsync($"{_baseUrl}/{id}");
+
+                if(response.IsSuccessStatusCode)
+                {
+                    return true;
+                }
+                else
+                {
+                    var error = response.Content.ReadAsStringAsync().Result;
+                    throw new Exception(error);
+                }
+            }
+            catch (Exception ex)
+            {
+                
+                throw new Exception(ex.Message);
+            }
         }
 
         public async Task<List<StudentModel>> GetStudentAsync()
@@ -82,7 +100,21 @@ namespace WCE_App.Services
                 return result;
             }
             else{
-                throw new Exception("Error!");
+                throw new Exception("Something went wrong!");
+            }
+        }
+
+        public async Task<StudentModel> GetStudentAsync(string email)
+        {
+            var response = await _http.GetAsync($"{_baseUrl}/find/{email}");
+            if(response.IsSuccessStatusCode)
+            {
+                var data = await response.Content.ReadAsStringAsync();
+                var result = JsonSerializer.Deserialize<StudentModel>(data, _options);
+                return result;
+            }
+            else{
+                throw new Exception("Something went wrong!");
             }
         }
 

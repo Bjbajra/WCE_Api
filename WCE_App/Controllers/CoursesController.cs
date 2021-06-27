@@ -25,6 +25,7 @@ namespace WCE_App.Controllers
             return View("Index", result);
         }
 
+
         [HttpGet()]
         public async Task<IActionResult> Create()
         {
@@ -59,10 +60,10 @@ namespace WCE_App.Controllers
             return View("Error");
         }
 
-
-        public async Task<IActionResult> EditCourse(int courseNo)
+        //[HttpGet()]
+        public async Task<IActionResult> EditCourse(int id)
         {
-            var course = await _courseService.GetCourseAsync(courseNo);
+            var course = await _courseService.GetCourseByIdAsync(id);
 
             var model = new EditCourseViewModel
             {
@@ -72,26 +73,22 @@ namespace WCE_App.Controllers
             };
 
             return View("EditCourse", model);
-
-            //return View("Edit");
-
-
         }
 
         [HttpPost()]
         public async Task<IActionResult> EditCourse(EditCourseViewModel data)
         {
-
             try
             {
-                var course = await _courseService.GetCourseAsync(data.Id);
+                var course = await _courseService.GetCourseByIdAsync(data.Id);
                 var courseViewModel = new UpdateCourseViewModel
                 {
                     Title = data.Title,
                     Duration = data.Duration
                 };
                 
-                if (await _courseService.UpdateCourse(data.Id, courseViewModel)) return RedirectToAction("Index");
+                if (await _courseService.UpdateCourse(data.Id, courseViewModel)) 
+                    return RedirectToAction("Index");
 
             }
             catch (Exception)
@@ -102,7 +99,7 @@ namespace WCE_App.Controllers
             return View("Error");
 
         }
-
+        
         public async Task<IActionResult> SearchCourse(int courseNo)
         {
             var course = await _courseService.GetCourseAsync(courseNo);
@@ -142,24 +139,21 @@ namespace WCE_App.Controllers
             }
             return Content($"Cannot find course {courseNo}");
         }
-
-        public async Task<IActionResult> Delete(int courseNo)
+        
+        public async Task<IActionResult> Delete(int id)
         {
-            var course = await _courseService.GetCourseAsync(courseNo);
+            var course = await _courseService.GetCourseByIdAsync(id);
             try
             {
-                if (await _courseService.DeleteCourse(courseNo)) return RedirectToAction("Index");
-
+                if (await _courseService.DeleteCourse(id)) 
+                    return RedirectToAction("Index");
             }
             catch (Exception)
             {
                 return View("Error");
             }
 
-            return View("Error");
+            return View("Error");            
         }
-
-
-
     }
 }

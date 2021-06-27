@@ -9,6 +9,7 @@ namespace WCE_App.Interfaces
     {
         Task<List<StudentModel>> GetStudentAsync();
         Task<StudentModel> GetStudentAsync(int id);
+        Task<StudentModel> GetStudentAsync(string email);
         Task<bool> AddStudent(StudentModel model);
         Task<bool> UpdateStudent(int id, UpdateStudentViewModel model);
         Task<bool> DeleteStudent(int id);

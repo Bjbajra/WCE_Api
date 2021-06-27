@@ -12,30 +12,27 @@ namespace WCE_Api.Controllers
     [Route("wce_api/students")]
     public class StudentsController : ControllerBase
     {
-        private readonly DataContext _context;
-        private readonly IStudentRepository _studentRepo;
-
-        public StudentsController(DataContext context, IStudentRepository studentRepo)
+        private readonly IUnitOfWork _unitOfWork;
+        public StudentsController(IUnitOfWork unitOfWork)
         {
-            _studentRepo = studentRepo;
-            _context = context;
+            _unitOfWork = unitOfWork;
         }
 
         [HttpGet()]
         public async Task<IActionResult> GetStudents()
         {
             //var result = await _context.Students.ToListAsync();
-            var result = await _studentRepo.GetStudentAsync();
+            var result = await _unitOfWork.StudentRepository.GetStudentAsync();
             return Ok(result);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetStudentById(int id)
         {
-             try
+            try
             {
-            
-                var student = await _studentRepo.GetStudentByIdAsync(id);
+
+                var student = await _unitOfWork.StudentRepository.GetStudentByIdAsync(id);
                 if (student == null) return NotFound();
                 return Ok(student);
 
@@ -52,7 +49,7 @@ namespace WCE_Api.Controllers
             try
             {
                 //var student = await _context.Students.SingleOrDefaultAsync(s => s.Email == email);
-                var student = await _studentRepo.GetStudentByEmailAsync(email);
+                var student = await _unitOfWork.StudentRepository.GetStudentByEmailAsync(email);
                 if (student == null) return NotFound();
                 return Ok(student);
 
@@ -71,9 +68,9 @@ namespace WCE_Api.Controllers
                 // _context.Students.Add(student);
                 // var result = await _context.SaveChangesAsync();
 
-                await _studentRepo.AddAsync(student);
+                await _unitOfWork.StudentRepository.AddAsync(student);
 
-                if (await _studentRepo.SaveAllChangesAsync()) return StatusCode(201);
+                if (await _unitOfWork.Complete()) return StatusCode(201);
                 return StatusCode(201);
             }
             catch (Exception ex)
@@ -87,15 +84,15 @@ namespace WCE_Api.Controllers
         {
             try
             {
-                var student = await _studentRepo.GetStudentByIdAsync(id);
+                var student = await _unitOfWork.StudentRepository.GetStudentByIdAsync(id);
                 student.FirstName = std.FirstName;
                 student.LastName = std.LastName;
                 student.Email = std.Email;
                 student.MobileNumber = std.MobileNumber;
                 student.Address = std.Address;
 
-                _studentRepo.Update(student);
-                var result = await _studentRepo.SaveAllChangesAsync();
+                _unitOfWork.StudentRepository.Update(student);
+                var result = await _unitOfWork.Complete();
                 return NoContent();
             }
             catch (Exception ex)
@@ -108,12 +105,12 @@ namespace WCE_Api.Controllers
         {
             try
             {
-                var student = await _studentRepo.GetStudentByIdAsync(id);
+                var student = await _unitOfWork.StudentRepository.GetStudentByIdAsync(id);
                 if (student == null) return NotFound();
 
-                _studentRepo.Delete(student);
+                _unitOfWork.StudentRepository.Delete(student);
 
-                var result = _studentRepo.SaveAllChangesAsync();
+                var result = _unitOfWork.Complete();
                 return NoContent();
             }
             catch (Exception ex)

@@ -12,17 +12,27 @@ namespace WCE_Api.Controllers
     [Route("wce_api/courses")]
     public class CoursesController : ControllerBase
     {
-        private readonly ICourseRepository _courseRepo;
-        public CoursesController(DataContext context, ICourseRepository courseRepo)
+        private readonly IUnitOfWork _unitOfWork;
+
+        public CoursesController(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
+        }
+
+        //private readonly ICourseRepository _courseRepo;
+        /*public CoursesController( ICourseRepository courseRepo)
         {
             _courseRepo = courseRepo;
            
-        }
+        }*/
+
+
 
         [HttpGet()]
         public async Task<IActionResult> GetCourses()
         {
-            var result = await _courseRepo.GetCoursesAsync();
+            //var result = await _courseRepo.GetCoursesAsync();
+            var result = await _unitOfWork.CourseRepository.GetCoursesAsync();
             return Ok(result);
         }
 
@@ -31,14 +41,14 @@ namespace WCE_Api.Controllers
         {
             try
             {
-                var course = await _courseRepo.GetCourseByIdAsync(id);
+                var course = await _unitOfWork.CourseRepository.GetCourseByIdAsync(id);
 
-                if(course == null) return NotFound();
+                if (course == null) return NotFound();
                 return Ok(course);
             }
             catch (Exception ex)
             {
-               return StatusCode(500, ex.Message);
+                return StatusCode(500, ex.Message);
             }
         }
 
@@ -46,8 +56,8 @@ namespace WCE_Api.Controllers
         public async Task<IActionResult> GetCourseByCourseNumber(int courseNo)
         {
             try
-            {        
-                var course = await _courseRepo.GetCourseByCourseNoAsync(courseNo);
+            {
+                var course = await _unitOfWork.CourseRepository.GetCourseByCourseNoAsync(courseNo);
 
                 if (course == null) return NotFound();
                 return Ok(course);
@@ -65,9 +75,9 @@ namespace WCE_Api.Controllers
         {
             try
             {
-                await _courseRepo.AddAsync(course);
+                await _unitOfWork.CourseRepository.AddAsync(course);
 
-                if (await _courseRepo.SaveAllChangesAsync()) return StatusCode(201);
+                if (await _unitOfWork.Complete()) return StatusCode(201);
 
                 return StatusCode(500);
             }
@@ -79,20 +89,20 @@ namespace WCE_Api.Controllers
 
         }
 
-        [HttpPut("{courseNo}")]
-        public async Task<IActionResult> UpdateCourse(int courseNo, Course courseForm)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateCourse(int id, Course courseForm)
         {
             try
-            {                
-                var course = await _courseRepo.GetCourseByCourseNoAsync(courseNo);
+            {
+                var course = await _unitOfWork.CourseRepository.GetCourseByIdAsync(id);
                 course.Title = courseForm.Title;
                 course.Description = courseForm.Description;
                 course.Duration = courseForm.Duration;
                 course.Level = courseForm.Level;
                 course.Status = courseForm.Status;
-        
-                _courseRepo.Update(course);
-                var result = await _courseRepo.SaveAllChangesAsync();
+
+                _unitOfWork.CourseRepository.Update(course);
+                var result = await _unitOfWork.Complete();
 
                 return NoContent();
             }
@@ -104,19 +114,19 @@ namespace WCE_Api.Controllers
 
         }
 
-        [HttpDelete("{courseNo}")]
-        public async Task<IActionResult> DeleteCourse(int courseNo)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCourse(int id)
         {
             try
-            {                
-                var course = await _courseRepo.GetCourseByCourseNoAsync(courseNo);
+            {
+                var course = await _unitOfWork.CourseRepository.GetCourseByIdAsync(id);
 
                 if (course == null) return NotFound();
-               
-               _courseRepo.Delete(course);
-                
-                var result = _courseRepo.SaveAllChangesAsync();
-                
+
+                _unitOfWork.CourseRepository.Delete(course);
+
+                var result = _unitOfWork.Complete();
+
                 return NoContent();
             }
             catch (Exception ex)

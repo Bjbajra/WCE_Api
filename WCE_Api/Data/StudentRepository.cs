@@ -39,11 +39,11 @@ namespace WCE_Api.Data
             return student;
         }
 
-        public async Task<bool> SaveAllChangesAsync()
+       /* public async Task<bool> SaveAllChangesAsync()
         {
             return await _context.SaveChangesAsync() > 0;
         }
-
+        */
         public void Update(Student student)
         {
             _context.Students.Update(student);

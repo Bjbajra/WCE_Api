@@ -36,7 +36,8 @@ namespace WCE_Api
                 option.UseSqlite(_Config.GetConnectionString("DefaultConnection"));
             });
             
-            services.AddScoped<ICourseRepository, CourseRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            //services.AddScoped<ICourseRepository, CourseRepository>();
             services.AddScoped<IStudentRepository, StudentRepository>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
