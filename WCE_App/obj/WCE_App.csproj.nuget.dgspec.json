@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\bijay\\westcoasteducationapi\\wce_app\\WCE_App.csproj": {}
+    "C:\\Users\\bijay\\WCE_API\\WCE_Api\\wce_app\\WCE_App.csproj": {}
   },
   "projects": {
-    "C:\\Users\\bijay\\westcoasteducationapi\\wce_app\\WCE_App.csproj": {
+    "C:\\Users\\bijay\\WCE_API\\WCE_Api\\wce_app\\WCE_App.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\bijay\\westcoasteducationapi\\wce_app\\WCE_App.csproj",
+        "projectUniqueName": "C:\\Users\\bijay\\WCE_API\\WCE_Api\\wce_app\\WCE_App.csproj",
         "projectName": "WCE_App",
-        "projectPath": "C:\\Users\\bijay\\westcoasteducationapi\\wce_app\\WCE_App.csproj",
+        "projectPath": "C:\\Users\\bijay\\WCE_API\\WCE_Api\\wce_app\\WCE_App.csproj",
         "packagesPath": "C:\\Users\\bijay\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\bijay\\westcoasteducationapi\\wce_app\\obj\\",
+        "outputPath": "C:\\Users\\bijay\\WCE_API\\WCE_Api\\wce_app\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\bijay\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -39,6 +39,28 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
+          "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[10.1.1, )"
+            },
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[8.1.1, )"
+            },
+            "Microsoft.AspNetCore.Identity": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.6, )"
+            },
+            "Microsoft.AspNetCore.Identity.UI": {
+              "target": "Package",
+              "version": "[5.0.6, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

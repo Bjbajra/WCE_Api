@@ -23,14 +23,13 @@ namespace WCE_App.Controllers
         {
             var result = await _studentService.GetStudentAsync();
             return View("Index", result);
-
-
         }
-        
+
+        [HttpPost()]
          public async Task<IActionResult> SearchStudent(string email)
         {
             var student = await _studentService.GetStudentAsync(email);
-
+            
             if(student != null)
             {
                 var model = new SearchStudentViewModel
@@ -45,7 +44,7 @@ namespace WCE_App.Controllers
             return View("SearchStudent", model);
             }
             return Content("Student not found!");
-            //return View("SearchStudent");
+           // return View("SearchStudent");
         }
 
         [HttpGet()]

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\bijay\\westcoasteducationapi\\wce_api\\WCE_Api.csproj": {}
+    "C:\\Users\\bijay\\WCE_API\\WCE_Api\\wce_api\\WCE_Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\bijay\\westcoasteducationapi\\wce_api\\WCE_Api.csproj": {
+    "C:\\Users\\bijay\\WCE_API\\WCE_Api\\wce_api\\WCE_Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\bijay\\westcoasteducationapi\\wce_api\\WCE_Api.csproj",
+        "projectUniqueName": "C:\\Users\\bijay\\WCE_API\\WCE_Api\\wce_api\\WCE_Api.csproj",
         "projectName": "WCE_Api",
-        "projectPath": "C:\\Users\\bijay\\westcoasteducationapi\\wce_api\\WCE_Api.csproj",
+        "projectPath": "C:\\Users\\bijay\\WCE_API\\WCE_Api\\wce_api\\WCE_Api.csproj",
         "packagesPath": "C:\\Users\\bijay\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\bijay\\westcoasteducationapi\\wce_api\\obj\\",
+        "outputPath": "C:\\Users\\bijay\\WCE_API\\WCE_Api\\wce_api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\bijay\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -40,6 +40,18 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[10.1.1, )"
+            },
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[8.1.1, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[5.0.6, )"
+            },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
               "version": "[5.0.6, )"
@@ -58,9 +70,17 @@
               "target": "Package",
               "version": "[5.0.6, )"
             },
+            "Microsoft.IdentityModel.Tokens": {
+              "target": "Package",
+              "version": "[6.11.1, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[5.6.3, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[6.11.1, )"
             }
           },
           "imports": [

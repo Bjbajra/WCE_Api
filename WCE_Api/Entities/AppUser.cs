@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
 
 namespace WCE_Api.Entities
@@ -7,6 +8,6 @@ namespace WCE_Api.Entities
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Phone { get; set; }
-
+        public ICollection<AppUserRole> UserRoles { get; set; }
     }
 }
