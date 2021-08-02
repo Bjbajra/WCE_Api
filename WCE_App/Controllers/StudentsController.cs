@@ -25,28 +25,7 @@ namespace WCE_App.Controllers
             return View("Index", result);
 
 
-        }
-        
-         public async Task<IActionResult> SearchStudent(string email)
-        {
-            var student = await _studentService.GetStudentAsync(email);
-
-            if(student != null)
-            {
-                var model = new SearchStudentViewModel
-                {
-                    Id = student.Id,
-                    FirstName = student.FirstName,
-                    LastName = student.LastName,
-                    Email = student.Email,
-                    MobileNumber = student.MobileNumber,
-                    Address = student.Address
-                };
-            return View("SearchStudent", model);
-            }
-            return Content("Student not found!");
-            //return View("SearchStudent");
-        }
+        }          
 
         [HttpGet()]
         public async Task<IActionResult> Create()
@@ -81,8 +60,28 @@ namespace WCE_App.Controllers
             }
 
             return View("Error");
+        }
 
+        
+         public async Task<IActionResult> SearchStudent(string email)
+        {
+            var student = await _studentService.GetStudentAsync(email);
 
+            if(student != null)
+            {
+                var model = new SearchStudentViewModel
+                {
+                    Id = student.Id,
+                    FirstName = student.FirstName,
+                    LastName = student.LastName,
+                    Email = student.Email,
+                    MobileNumber = student.MobileNumber,
+                    Address = student.Address
+                };
+            return View("SearchStudent", model);
+            }
+            return Content("Student not found!");
+            //return View("SearchStudent");
         }
 
         [HttpGet]
