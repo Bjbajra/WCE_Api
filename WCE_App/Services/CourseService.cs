@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -81,6 +82,10 @@ namespace WCE_App.Services
 
         public async Task<List<CourseModel>> GetCourseAsync()
         {
+            _http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",
+            "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJiaWpheWJhaiIsIm5iZiI6MTYyNzU2ODI0NiwiZXhwIjoxNjI4MDAwMjQ2LCJpYXQiOjE2Mjc1NjgyNDZ9.jBDGuepmiSSWe031m5eAHHyxmHBqbcOTg5JzA5zbbGabwqePKM2RGl03Ac6ShtSZ_3xMPA89xY_7hi5GZfVekg"
+
+            );
             var response = await _http.GetAsync($"{_baseUrl}");
 
             if (response.IsSuccessStatusCode)

@@ -1,28 +1,37 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using WCE_Api.Data;
+using WCE_Api.Entities;
 using WCE_Api.Interfaces;
+using WCE_Api.Mappings;
+using WCE_Api.Services;
 
 namespace WCE_Api
 {
     public class Startup
     {
-        public IConfiguration _Config { get; }
+        public IConfiguration _config { get; }
         public Startup(IConfiguration config)
         {
-            _Config = config;
+            _config = config;
 
         }
 
@@ -31,14 +40,37 @@ namespace WCE_Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddIdentityCore<AppUser>(opt => {
+                opt.Password.RequireNonAlphanumeric = false;
+                opt.Password.RequireDigit =false;
+                opt.Password.RequireUppercase = false;
+                opt.Password.RequiredLength = 8;
+            })
+            .AddRoles<AppRole>()
+            .AddRoleManager<RoleManager<AppRole>>()
+            .AddSignInManager<SignInManager<AppUser>>()
+            .AddRoleValidator<RoleValidator<AppRole>>()
+            .AddEntityFrameworkStores<DataContext>();
 
             services.AddDbContext<DataContext>(option => {
-                option.UseSqlite(_Config.GetConnectionString("DefaultConnection"));
+                option.UseSqlite(_config.GetConnectionString("DefaultConnection"));
             });
             
+            services.AddAutoMapper(typeof(MappingProfile).Assembly);
+            services.AddScoped<ITokenService, TokenService>();
+            services.TryAddSingleton<ISystemClock, SystemClock>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             //services.AddScoped<ICourseRepository, CourseRepository>();
             services.AddScoped<IStudentRepository, StudentRepository>();
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(opt => {
+                opt.TokenValidationParameters = new TokenValidationParameters{
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["TokenKey"])),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -59,6 +91,8 @@ namespace WCE_Api
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

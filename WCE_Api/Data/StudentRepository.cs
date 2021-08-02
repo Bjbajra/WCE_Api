@@ -30,7 +30,7 @@ namespace WCE_Api.Data
         }
         public async Task<Student> GetStudentByIdAsync(int id)
         {
-            return await _context.Students.SingleOrDefaultAsync(s => s.StudentId == id);
+            return await _context.Students.SingleOrDefaultAsync(s => s.id == id);
         }
 
         public async Task<Student> GetStudentByEmailAsync(string email)

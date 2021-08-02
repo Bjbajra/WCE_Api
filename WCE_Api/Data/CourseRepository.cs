@@ -32,7 +32,7 @@ namespace WCE_Api.Data
 
         public async Task<Course> GetCourseByIdAsync(int id)
         {
-            return await _context.Courses.SingleOrDefaultAsync(c => c.CourseId == id);
+            return await _context.Courses.SingleOrDefaultAsync(c => c.Id == id);
         }
 
         public async Task<IEnumerable<Course>> GetCoursesAsync()

@@ -114,7 +114,7 @@ namespace WCE_App.Services
                 return result;
             }
             else{
-                throw new Exception("Something went wrong!");
+                throw new Exception("Bijay Something went wrong!");
             }
         }
 

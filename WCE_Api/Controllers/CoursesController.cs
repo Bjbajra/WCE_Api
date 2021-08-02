@@ -1,10 +1,12 @@
 using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WCE_Api.Data;
 using WCE_Api.Entities;
 using WCE_Api.Interfaces;
+using WCE_Api.ViewModels;
 
 namespace WCE_Api.Controllers
 {
@@ -29,6 +31,7 @@ namespace WCE_Api.Controllers
 
 
         [HttpGet()]
+        [Authorize()]
         public async Task<IActionResult> GetCourses()
         {
             //var result = await _courseRepo.GetCoursesAsync();
@@ -91,6 +94,7 @@ namespace WCE_Api.Controllers
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCourse(int id, Course courseForm)
+        //public async Task<IActionResult> UpdateCourse(int id, UpdateCourseViewModel model)
         {
             try
             {
@@ -100,6 +104,12 @@ namespace WCE_Api.Controllers
                 course.Duration = courseForm.Duration;
                 course.Level = courseForm.Level;
                 course.Status = courseForm.Status;
+
+                /*course.Title = model.Title;
+                course.Description = course.Description;
+                course.Duration = model.Duration;
+                course.Level = course.Level;
+                course.Status = course.Status;*/
 
                 _unitOfWork.CourseRepository.Update(course);
                 var result = await _unitOfWork.Complete();
